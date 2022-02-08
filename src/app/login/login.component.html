@@ -1,0 +1,93 @@
+  <!-- Sign Up form -->
+  <div class="limiter">
+  
+    <div class="container-login100">
+        
+        <div class="wrap-login100">
+            
+            <div class="login100-form-title" style="background-image: url(assets/images/bg-01.jpg);">
+                <span class="login100-form-title-1">
+                    Login
+                </span>
+            </div>
+
+            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="login100-form validate-form">
+
+                <div *ngIf="invalidCred" id="error-div" class="alert " style="padding-left: 0px ">
+                    <div *ngIf="invalidCred" class="float-left ">
+                   Invalid Email/Password
+                    </div></div>
+                
+
+                <div class="wrap-input100 validate-input m-b-18" data-validate = "Email is required">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="email" name="email" #email="ngModel" ngModel placeholder="Enter Email" required>
+                    <span class="focus-input100"></span>
+                </div>
+
+                 <!-- Client side Email validation -->
+              <div *ngIf="email.invalid && email.touched" id="error-div" class="alert " style="padding-left: 0px ">
+                <div *ngIf="email.errors?.['required']" class="float-left ">
+                  Email is required.
+                </div>
+                <div *ngIf="email.errors?.['email']" class="float-left ">
+                  Enter Email in valid format.
+                </div>
+              </div>
+
+            <!-- Server side Email validation -->
+            <div *ngIf="userError?.email" id="error-div" class="alert" style="padding-left: 0px">
+              <div class="float-left">
+                {{ userError.email }}
+              </div>
+            </div>
+
+                <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+                    <span class="label-input100">Password</span>
+                    <input class="input100" 
+                    ngModel #password="ngModel"
+                    minlength="5" maxlength="5" 
+                    type="password" name="password" placeholder="Enter password" required>
+                    <span class="focus-input100"></span>
+                </div>
+
+<!-- Client side Password validation -->
+<div *ngIf="password.invalid &&  password.touched" id="error-div" class="alert " style="padding-left: 0px ">
+    <div *ngIf="password.errors?.['required']" class="float-left ">
+      Password  is required.
+    </div>
+    <div *ngIf="password.errors?.['minlength'] || password.errors?.['maxlength']" class="float-left ">
+      Password must be 5 digits long.
+    </div>
+  </div> 
+
+  <!-- Server side Password validation -->
+  <div *ngIf="userError?.password" id="error-div" class="alert" style="padding-left: 0px">
+    <div class="float-left">
+      {{ userError.password }}
+    </div>
+  </div>
+
+                <div class="flex-sb-m w-full p-b-30">
+                    <div>
+                        <a routerLink="/signup" routerLinkActive="active" class="txt1" >
+                            New Here?Click Here to SignUp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <a id="login-link" routerLink="/home" routerLinkActive="active" type="hidden"></a>
+                    <a id="logged-in-link" routerLink="/home" routerLinkActive="active" type="hidden"></a>
+                    <button [disabled]="loginForm.invalid" type="submit" class="login100-form-btn" value="Login">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    
+  
